@@ -3,8 +3,6 @@ var _asset;
 var _ready;
 
 var Preloader = function (game) {
-	_asset = null;
-	_ready = false;
 	_game = game;
 }
 
@@ -16,8 +14,11 @@ Preloader.prototype = {
 
 		_game.load.onLoadComplete.addOnce(this.onLoadComplete, Preloader);
 		_game.load.setPreloadSprite(_asset);
+
 		_game.load.image('phaser', 'assets/gfx/phaser-logo-small.png');
 
+		_game.load.audio('always-remembered', ['assets/sfx/always-remembered-low-quality.ogg']);
+		_game.load.audio('rain', ['assets/sfx/dark-rainy-night-ambience-clipped-low-quality.ogg']);
 	},
 
 	create: function () {
