@@ -1,0 +1,38 @@
+{
+	"name": "hex-build",
+	"version": "0.0.1",
+	"description": "hex-build is an app!",
+	"main": "app.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/leftiness/hex-build"
+	},
+	"authors": "Brandon Parmenter <leftiness@gmail.com>",
+	"private": false,
+	"engines": {
+		"node": "0.12.7"
+	},
+	"scripts": {
+		"build:dev": "npm-run-all clean -p copy:* watch:* start",
+		"build:prod": "npm-run-all clean -p copy:* bundle:js",
+		"bundle:js": "browserify ./app/app.js -o ./dist/bundle.js -x phaser",
+		"clean": "find ./dist/* -print0 | xargs -0 rm -rf",
+		"copy:assets": "cp -r ./app/assets/ ./dist/",
+		"copy:index": "cp ./app/index.html ./dist/index.html",
+		"copy:phaser": "cp ./node_modules/phaser/dist/phaser.min.js ./dist/",
+		"start": "node server.js",
+		"watch:assets": "onchange ./app/assets/**/* -- npm run copy:assets",
+		"watch:js": "watchify ./app/app.js -o ./dist/bundle.js -dv -x phaser",
+		"watch:index": "onchange ./app/index.html -- npm run copy:index"
+	},
+	"devDependencies": {
+		"browserify": "^11.0.0",
+		"npm-run-all": "^1.2.6",
+		"onchange": "^1.1.0",
+		"watchify": "^3.3.0"
+	},
+	"dependencies": {
+		"express": "^4.13.1",
+		"phaser": "^2.3.0"
+	}
+}
