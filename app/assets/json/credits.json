@@ -50,5 +50,13 @@
 			"url": "https://github.com/jroblak/generator-phaser-browserify",
 			"license": "MIT"
 		}
+	],
+	"fonts": [
+		{
+			"title": "Caudex-Regular",
+			"author": "Hjort Nidudsson",
+			"url": "http://www.fontsquirrel.com/fonts/caudex",
+			"license": "SIL Open Font License v1.10"
+		}
 	]
 }
