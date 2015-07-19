@@ -16,7 +16,7 @@
 		"build:dev": "npm-run-all clean -p copy:* watch:* start",
 		"build:prod": "npm-run-all clean -p copy:* bundle:js",
 		"bundle:js": "browserify ./app/app.js -o ./dist/bundle.js -x phaser",
-		"clean": "find ./dist/* -print0 | xargs -0 rm -rf",
+		"clean": "rm -rf ./dist/*",
 		"copy:assets": "cp -r ./app/assets/ ./dist/",
 		"copy:index": "cp ./app/index.html ./dist/index.html",
 		"copy:phaser": "cp ./node_modules/phaser/dist/phaser.min.js ./dist/",
