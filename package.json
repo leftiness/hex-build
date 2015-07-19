@@ -22,8 +22,9 @@
 		"copy:phaser": "cp ./node_modules/phaser/dist/phaser.min.js ./dist/",
 		"start": "node server.js",
 		"watch:assets": "onchange ./app/assets/**/* -- npm run copy:assets",
-		"watch:js": "watchify ./app/app.js -o ./dist/bundle.js -dv -x phaser",
-		"watch:index": "onchange ./app/index.html -- npm run copy:index"
+		"watch:index": "onchange ./app/index.html -- npm run copy:index",
+		"watch:js": "watchify ./app/app.js -o ./dist/bundle.js -dv -x phaser"
+
 	},
 	"devDependencies": {
 		"browserify": "^11.0.0",
