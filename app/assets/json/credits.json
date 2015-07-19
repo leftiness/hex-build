@@ -1,0 +1,54 @@
+{
+	"music": [
+		{
+			"title": "Always Remembered",
+			"author": "deadEarth",
+			"url": "http://opengameart.org/content/always-remembered",
+			"license": "CC-BY 3.0"
+		}, {
+			"title": "Crystal Cavern_1",
+			"author": "Kistol",
+			"url": "http://opengameart.org/content/crystal-cavern",
+			"license": "CC-BY 3.0"
+		}
+	],
+	"sounds": [
+		{
+			"title": "Dark_Rainy_Night (ambience)",
+			"author": "kindland",
+			"url": "http://opengameart.org/content/darkrainynight-ambience",
+			"license": "CC0"
+		}, {
+			"title": "Scary Ambient Wind",
+			"author": "Alexandr Zhelanov",
+			"url": "http://opengameart.org/content/scary-ambient-wind",
+			"license": "CC-BY 3.0"
+		}
+	],
+	"graphics": [
+		{
+			"title": "phaser-logo-small",
+			"author": "Richard Davey, Photon Storm Ltd.",
+			"url": "http://phaser.io/download/logo",
+			"license": "CC-BY-SA"
+		}, {
+			"title": "preloader",
+			"author": "balpha, Stack Exchange Inc.",
+			"url": "http://meta.stackexchange.com/questions/246034/is-the-loading-icon-copyrighted-by-stack-exchange",
+			"license": "CC0"
+		}
+	],
+	"code": [
+		{
+			"title": "Phaser",
+			"author": "Richard Davey, Photon Storm Ltd.",
+			"url": "https://github.com/photonstorm/phaser",
+			"license": "MIT"
+		}, {
+			"title": "generator-phaser-browserify",
+			"author": "jroblack",
+			"url": "https://github.com/jroblak/generator-phaser-browserify",
+			"license": "MIT"
+		}
+	]
+}
