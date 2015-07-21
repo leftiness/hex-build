@@ -1,8 +1,11 @@
+var _menuFactory = require('../util/menuFactory');
+
 var _game;
-var _text;
+var _title;
 var _music;
 var _rain;
 var _timer;
+var _menu;
 
 var Menu = function (game) {
 	_game = game;
@@ -13,7 +16,14 @@ Menu.prototype = {
 	create: function () {
 			var x = _game.width;
 			var y = _game.height;
-			var style = { font: '120px Caudex-Regular', fill: '#000000', align: 'center'};
+			var titleStyle = {
+				font: '120px Caudex-Regular',
+				fill: '#000000',
+			};
+			var itemStyle = {
+				font: '24px Caudex-Regular',
+				fill: '#000000',
+			};
 			var graphics = _game.add.graphics(0, 0);
 			var rec;
 
@@ -23,9 +33,17 @@ Menu.prototype = {
 			_game.add.tween(rec).to({ alpha: 0}, 1000).start();
 
 			_timer = _game.time.create(false);
-			_text = _game.add.text(x - 700, y - 500, 'Hex', style);
+			_title = _game.add.text(x - 700, y - 500, 'Hex', titleStyle);
 			_music = _game.add.audio('always-remembered');
 			_rain = _game.add.audio('rain', 0.5);
+
+			_menu = new _menuFactory(_game, x - 200, y - 200, 0, 30, itemStyle);
+			_menu.add.text('Hello');
+			_menu.add.text('Goodbye');
+			_menu.add.text('lol');
+			_menu.add.button('button', function () {
+				console.log('button');
+			});
 	},
 
 	update: function () {
