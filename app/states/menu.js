@@ -1,4 +1,4 @@
-var _menuFactory = require('../util/menuFactory');
+var _menuBuilder = require('../util/menuBuilder');
 
 var _game;
 var _title;
@@ -26,6 +26,7 @@ Menu.prototype = {
 			};
 			var graphics = _game.add.graphics(0, 0);
 			var rec;
+			var builder;
 
 			_game.stage.backgroundColor = '#ffffff';
 			graphics.beginFill('#000000', 1);
@@ -37,13 +38,18 @@ Menu.prototype = {
 			_music = _game.add.audio('always-remembered');
 			_rain = _game.add.audio('rain', 0.5);
 
-			_menu = new _menuFactory(_game, x - 200, y - 200, 0, 30, itemStyle);
-			_menu.add.text('Hello');
-			_menu.add.text('Goodbye');
-			_menu.add.text('lol');
-			_menu.add.button('button', function () {
-				console.log('button');
+			builder = new _menuBuilder(_game, x - 200, y - 200, 0, 30, itemStyle);
+			builder.add.button('New', function () {
+				alert('TODO New');
 			});
+			builder.add.button('Load', function () {
+				alert('TODO Load');
+			});
+			builder.add.button('Options', function () {
+				alert('TODO Options');
+			});
+
+			_menu = builder.get();
 	},
 
 	update: function () {

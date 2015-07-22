@@ -7,7 +7,7 @@ var _style;
 var _menu;
 var _self;
 
-var MenuFactory = function (game, x, y, xOffset, yOffset, style) {
+var MenuBuilder = function (game, x, y, xOffset, yOffset, style) {
 	_game = game;
 	_x = x;
 	_y = y;
@@ -18,7 +18,7 @@ var MenuFactory = function (game, x, y, xOffset, yOffset, style) {
 	_self = this;
 };
 
-MenuFactory.prototype = {
+MenuBuilder.prototype = {
 
 	add: {
 
@@ -55,8 +55,12 @@ MenuFactory.prototype = {
 			return button;
 		}
 
-	}
+	},
 
+	get: function () {
+		return _menu;
+	}
+	
 };
 
-module.exports = MenuFactory;
+module.exports = MenuBuilder;
