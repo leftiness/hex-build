@@ -22,7 +22,7 @@ MenuFactory.prototype = {
 
 	add: {
 
-		text: function (text) {
+		text: function (value) {
 			var i = _menu.total;
 			var x;
 			var y;
@@ -31,15 +31,16 @@ MenuFactory.prototype = {
 			x = _x + (i * _xOffset);
 			y = _y + (i * _yOffset);
 
-			text = _game.add.text(x , y, text, _style);
+			text = _game.add.text(x , y, value, _style);
 			_menu.add(text);
 
 			return text;
 		},
 
-		button: function (text, callback) {
-			var text = _self.add.text(text);
+		button: function (value, callback) {
+			var text = _self.add.text(value);
 			var hitbox = _game.add.sprite(text.x, text.y);
+			var button = _game.add.group();
 
 			hitbox.height = text.height;
 			hitbox.width = text.width;
@@ -47,7 +48,11 @@ MenuFactory.prototype = {
 			hitbox.inputEnabled = true;
 			hitbox.events.onInputDown.add(callback, hitbox);
 
-			return hitbox;
+			button.add(text);
+			button.add(hitbox);
+			_menu.add(button);
+
+			return button;
 		}
 
 	}
