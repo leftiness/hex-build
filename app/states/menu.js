@@ -1,7 +1,9 @@
 var _menuBuilder = require('../util/menuBuilder');
+var _animationHelper = require('../util/animationHelper');
 
 var _game;
 var _music;
+var _menu;
 var _timer;
 var _self;
 
@@ -52,7 +54,7 @@ Menu.prototype = {
 		_game.stage.backgroundColor = '#ffffff';
 		graphics.beginFill('#000000', 1);
 		rec = graphics.drawRect(0, 0, x, y);
-		_game.add.tween(rec).to({ alpha: 0}, 1000).start();
+		_animationHelper.fadeout(_game, rec, 1000, true);
 	},
 
 	drawTitle: function () {
@@ -72,7 +74,9 @@ Menu.prototype = {
 			font: '24px Caudex-Regular',
 			fill: '#000000',
 		};
-		var menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
+
+		_menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
+		_menu.alpha = 0;
 
 		_menuBuilder.add.button('New', function () {
 			alert('TODO New');
@@ -82,6 +86,10 @@ Menu.prototype = {
 		});
 		_menuBuilder.add.button('Options', function () {
 			alert('TODO Options');
+		});
+
+		_timer.add(5500, function () {
+			_animationHelper.fadein(_game, _menu, 500, true);
 		});
 	}
 
