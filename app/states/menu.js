@@ -1,59 +1,33 @@
 var _menuBuilder = require('../util/menuBuilder');
 
 var _game;
-var _title;
 var _music;
-var _rain;
 var _timer;
-var _menu;
+var _self;
 
 var Menu = function (game) {
 	_game = game;
+	_self = this;
 }
 
 Menu.prototype = {
 
 	create: function () {
-			var x = _game.width;
-			var y = _game.height;
-			var titleStyle = {
-				font: '120px Caudex-Regular',
-				fill: '#000000',
-			};
-			var itemStyle = {
-				font: '24px Caudex-Regular',
-				fill: '#000000',
-			};
-			var graphics = _game.add.graphics(0, 0);
-			var rec;
-
-			_game.stage.backgroundColor = '#ffffff';
-			graphics.beginFill('#000000', 1);
-			rec = graphics.drawRect(0, 0, x, y);
-			_game.add.tween(rec).to({ alpha: 0}, 1000).start();
-
 			_timer = _game.time.create(false);
-			_title = _game.add.text(x - 700, y - 500, 'Hex', titleStyle);
+			_timer.start();
 			_music = _game.add.audio('always-remembered');
-			_rain = _game.add.audio('rain', 0.5);
-
-			_menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, itemStyle);
-			_menuBuilder.add.button('New', function () {
-				alert('TODO New');
-			});
-			_menuBuilder.add.button('Load', function () {
-				alert('TODO Load');
-			});
-			_menuBuilder.add.button('Options', function () {
-				alert('TODO Options');
-			});
+			_self.fadeFromBlack();
+			_self.drawTitle();
+			_self.drawMainMenu();
 	},
 
 	update: function () {
-		_music.onDecoded.addOnce(this.onDecoded, Menu);
+		_music.onDecoded.addOnce(_self.startMusicAndRain);
 	},
 
-	onDecoded: function () {
+	startMusicAndRain: function () {
+		var rain = _game.add.audio('rain', 0.5);
+
 		_timer.add(5000, function () {
 			_music.play();
 		});
@@ -62,12 +36,53 @@ Menu.prototype = {
 			if (!_music.isPlaying) {
 				_music.play();
 			}
-			var _loop = _game.add.audio('rain', 0.5);
-			_loop.play();
+			var loop = _game.add.audio('rain', 0.5);
+			loop.play();
 		});
 
-		_timer.start();
-		_rain.play();
+		rain.play();
+	},
+
+	fadeFromBlack: function () {
+		var x = _game.width;
+		var y = _game.height;
+		var graphics = _game.add.graphics(0, 0);
+		var rec;
+
+		_game.stage.backgroundColor = '#ffffff';
+		graphics.beginFill('#000000', 1);
+		rec = graphics.drawRect(0, 0, x, y);
+		_game.add.tween(rec).to({ alpha: 0}, 1000).start();
+	},
+
+	drawTitle: function () {
+		var x = _game.width;
+		var y = _game.height;
+		var style = {
+			font: '120px Caudex-Regular',
+			fill: '#000000',
+		};
+		var title = _game.add.text(x - 700, y - 500, 'Hex', style);
+	},
+
+	drawMainMenu: function () {
+		var x = _game.width;
+		var y = _game.height;
+		var style = {
+			font: '24px Caudex-Regular',
+			fill: '#000000',
+		};
+		var menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
+
+		_menuBuilder.add.button('New', function () {
+			alert('TODO New');
+		});
+		_menuBuilder.add.button('Load', function () {
+			alert('TODO Load');
+		});
+		_menuBuilder.add.button('Options', function () {
+			alert('TODO Options');
+		});
 	}
 
 }
