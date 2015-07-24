@@ -7,18 +7,19 @@ var _style;
 var _menu;
 var _self;
 
-var MenuBuilder = function (game, x, y, xOffset, yOffset, style) {
-	_game = game;
-	_x = x;
-	_y = y;
-	_xOffset = xOffset;
-	_yOffset = yOffset;
-	_style = style;
-	_menu = _game.add.group();
-	_self = this;
-};
+var _builder = {
 
-MenuBuilder.prototype = {
+	create: function (game, x, y, xOffset, yOffset, style) {
+		_game = game;
+		_x = x;
+		_y = y;
+		_xOffset = xOffset;
+		_yOffset = yOffset;
+		_style = style;
+		_menu = _game.add.group();
+		_self = this;
+		return _menu;
+	},
 
 	add: {
 
@@ -55,12 +56,8 @@ MenuBuilder.prototype = {
 			return button;
 		}
 
-	},
-
-	get: function () {
-		return _menu;
 	}
-	
+
 };
 
-module.exports = MenuBuilder;
+module.exports = _builder;

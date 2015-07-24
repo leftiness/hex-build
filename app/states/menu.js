@@ -26,7 +26,6 @@ Menu.prototype = {
 			};
 			var graphics = _game.add.graphics(0, 0);
 			var rec;
-			var builder;
 
 			_game.stage.backgroundColor = '#ffffff';
 			graphics.beginFill('#000000', 1);
@@ -38,18 +37,16 @@ Menu.prototype = {
 			_music = _game.add.audio('always-remembered');
 			_rain = _game.add.audio('rain', 0.5);
 
-			builder = new _menuBuilder(_game, x - 200, y - 200, 0, 30, itemStyle);
-			builder.add.button('New', function () {
+			_menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, itemStyle);
+			_menuBuilder.add.button('New', function () {
 				alert('TODO New');
 			});
-			builder.add.button('Load', function () {
+			_menuBuilder.add.button('Load', function () {
 				alert('TODO Load');
 			});
-			builder.add.button('Options', function () {
+			_menuBuilder.add.button('Options', function () {
 				alert('TODO Options');
 			});
-
-			_menu = builder.get();
 	},
 
 	update: function () {
