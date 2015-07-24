@@ -6,6 +6,7 @@ var _music;
 var _menu;
 var _timer;
 var _self;
+var _once;
 
 var Menu = function (game) {
 	_game = game;
@@ -20,7 +21,8 @@ Menu.prototype = {
 			_music = _game.add.audio('always-remembered');
 			_self.fadeFromBlack();
 			_self.drawTitle();
-			_self.drawMainMenu();
+			_self.drawMainMenu(5500);
+			_game.input.onDown.addOnce(this.fadeInMenu, Menu);
 	},
 
 	update: function () {
@@ -62,17 +64,17 @@ Menu.prototype = {
 		var y = _game.height;
 		var style = {
 			font: '120px Caudex-Regular',
-			fill: '#000000',
+			fill: '#000000'
 		};
 		var title = _game.add.text(x - 700, y - 500, 'Hex', style);
 	},
 
-	drawMainMenu: function () {
+	drawMainMenu: function (delay) {
 		var x = _game.width;
 		var y = _game.height;
 		var style = {
 			font: '24px Caudex-Regular',
-			fill: '#000000',
+			fill: '#000000'
 		};
 
 		_menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
@@ -88,11 +90,16 @@ Menu.prototype = {
 			alert('TODO Options');
 		});
 
-		_timer.add(5500, function () {
+		_timer.add(delay, this.fadeInMenu, Menu);
+	},
+
+	fadeInMenu: function () {
+		if (!!!_once) {
+			_once = true;
 			_animationHelper.fadein(_game, _menu, 500, true);
-		});
+		}
 	}
 
-}
+};
 
 module.exports = Menu;
