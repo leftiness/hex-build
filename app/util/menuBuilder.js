@@ -5,7 +5,6 @@ var _xOffset;
 var _yOffset;
 var _style;
 var _menu;
-var _self;
 
 var _builder = {
 
@@ -17,7 +16,6 @@ var _builder = {
 		_yOffset = yOffset;
 		_style = style;
 		_menu = _game.add.group();
-		_self = this;
 		return _menu;
 	},
 
@@ -39,7 +37,7 @@ var _builder = {
 		},
 
 		button: function (value, callback) {
-			var text = _self.add.text(value);
+			var text = _builder.add.text(value);
 			var hitbox = _game.add.sprite(text.x, text.y);
 			var button = _game.add.group();
 
