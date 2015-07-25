@@ -3,7 +3,7 @@ var _animationHelper = require('../util/animationHelper');
 
 var _game;
 var _music;
-var _menu;
+var _mainMenu;
 var _timer;
 var _self;
 var _once;
@@ -77,18 +77,18 @@ Menu.prototype = {
 			fill: '#000000'
 		};
 
-		_menu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
-		_menu.alpha = 0;
+		_mainMenu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
+		_mainMenu.alpha = 0;
 
 		_menuBuilder.add.button('New', function () {
 			alert('TODO New');
-		});
+		}, _mainMenu);
 		_menuBuilder.add.button('Load', function () {
 			alert('TODO Load');
-		});
+		}, _mainMenu);
 		_menuBuilder.add.button('Options', function () {
 			alert('TODO Options');
-		});
+		}, _mainMenu);
 
 		_timer.add(delay, this.fadeInMenu, Menu);
 	},
@@ -96,7 +96,7 @@ Menu.prototype = {
 	fadeInMenu: function () {
 		if (!!!_once) {
 			_once = true;
-			_animationHelper.fadein(_game, _menu, 500, true);
+			_animationHelper.fadein(_game, _mainMenu, 500, true);
 		}
 	}
 

@@ -4,25 +4,26 @@ var _y;
 var _xOffset;
 var _yOffset;
 var _style;
-var _menu;
 
 var _builder = {
 
 	create: function (game, x, y, xOffset, yOffset, style) {
+		var menu = game.add.group();
+
 		_game = game;
 		_x = x;
 		_y = y;
 		_xOffset = xOffset;
 		_yOffset = yOffset;
 		_style = style;
-		_menu = _game.add.group();
-		return _menu;
+
+		return menu;
 	},
 
 	add: {
 
-		text: function (value) {
-			var i = _menu.total;
+		text: function (value, menu) {
+			var i = menu.total;
 			var x;
 			var y;
 			var text;
@@ -31,13 +32,13 @@ var _builder = {
 			y = _y + (i * _yOffset);
 
 			text = _game.add.text(x , y, value, _style);
-			_menu.add(text);
+			menu.add(text);
 
 			return text;
 		},
 
-		button: function (value, callback) {
-			var text = _builder.add.text(value);
+		button: function (value, callback, menu) {
+			var text = _builder.add.text(value, menu);
 			var hitbox = _game.add.sprite(text.x, text.y);
 			var button = _game.add.group();
 
@@ -49,7 +50,7 @@ var _builder = {
 
 			button.add(text);
 			button.add(hitbox);
-			_menu.add(button);
+			menu.add(button);
 
 			return button;
 		}
