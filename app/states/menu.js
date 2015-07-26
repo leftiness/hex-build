@@ -1,5 +1,5 @@
 var _menuBuilder = require('../util/menuBuilder');
-var _animationHelper = require('../util/animationHelper');
+var AnimationHelper = require('../util/animationHelper');
 
 var _game;
 var _music;
@@ -57,11 +57,12 @@ Menu.prototype = {
 	fadeFromBlack: function () {
 		var graphics = _game.add.graphics(0, 0);
 		var rec;
+		var helper = AnimationHelper(_game);
 
 		_game.stage.backgroundColor = '#ffffff';
 		graphics.beginFill('#000000', 1);
 		rec = graphics.drawRect(0, 0, _x, _y);
-		_animationHelper.fadeout(_game, rec, 1000, true);
+		helper.fadeout(rec, 1000, true);
 	},
 
 	drawTitle: function () {

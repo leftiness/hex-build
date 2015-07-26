@@ -1,4 +1,4 @@
-var _animationHelper = require('./animationHelper');
+var AnimationHelper = require('./animationHelper');
 
 var _game;
 var _x;
@@ -69,6 +69,7 @@ var _builder = {
 
 		menu: function () {
 			var menu = _game.add.group();
+			var helper = AnimationHelper(_game);
 
 			menu.alpha = 0;
 			menu.hitboxes = [];
@@ -78,7 +79,7 @@ var _builder = {
 
 			menu.enter = function (time) {
 				time = time || 200;
-				_animationHelper.fadein(_game, menu, time, true);
+				helper.fadein(menu, time, true);
 				menu.hitboxes.forEach(function (hitbox) {
 					hitbox.inputEnabled = true;
 				});
@@ -87,7 +88,7 @@ var _builder = {
 
 			menu.exit = function (time) {
 				time = time || 200;
-				_animationHelper.fadeout(_game, menu, time, true);
+				helper.fadeout(menu, time, true);
 				menu.hitboxes.forEach(function (hitbox) {
 					hitbox.inputEnabled = false;
 				});
