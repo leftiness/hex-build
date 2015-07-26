@@ -3,14 +3,22 @@ var _animationHelper = require('../util/animationHelper');
 
 var _game;
 var _music;
-var _mainMenu;
 var _timer;
 var _self;
-var _once;
+
+var _x;
+var _y;
+var _style;
 
 var Menu = function (game) {
 	_game = game;
 	_self = this;
+	_x = game.width;
+	_y = game.height;
+	_style = {
+		font: '24px Caudex-Regular',
+		fill: '#000000'
+	};
 }
 
 Menu.prototype = {
@@ -21,8 +29,7 @@ Menu.prototype = {
 			_music = _game.add.audio('always-remembered');
 			_self.fadeFromBlack();
 			_self.drawTitle();
-			_self.drawMainMenu(5500);
-			_game.input.onDown.addOnce(this.fadeInMenu, Menu);
+			_self.drawMainMenu();
 	},
 
 	update: function () {
@@ -48,56 +55,49 @@ Menu.prototype = {
 	},
 
 	fadeFromBlack: function () {
-		var x = _game.width;
-		var y = _game.height;
 		var graphics = _game.add.graphics(0, 0);
 		var rec;
 
 		_game.stage.backgroundColor = '#ffffff';
 		graphics.beginFill('#000000', 1);
-		rec = graphics.drawRect(0, 0, x, y);
+		rec = graphics.drawRect(0, 0, _x, _y);
 		_animationHelper.fadeout(_game, rec, 1000, true);
 	},
 
 	drawTitle: function () {
-		var x = _game.width;
-		var y = _game.height;
 		var style = {
 			font: '120px Caudex-Regular',
 			fill: '#000000'
 		};
-		var title = _game.add.text(x - 700, y - 500, 'Hex', style);
+		var title = _game.add.text(_x - 700, _y - 500, 'Hex', style);
 	},
 
-	drawMainMenu: function (delay) {
-		var x = _game.width;
-		var y = _game.height;
-		var style = {
-			font: '24px Caudex-Regular',
-			fill: '#000000'
-		};
+	drawMainMenu: function () {
+		var menu = _game.add.group();
+		var x = _x - 200;
+		var y = _y - 200;
+		var builder = _menuBuilder.newInstance(_game, x, y, 0, 30, _style, menu);
+		var mainMenu = builder.add.menu();
+		var newMenu = builder.add.submenu('New', mainMenu, menu);
+		var loadMenu = builder.add.submenu('Load', mainMenu, menu);
+		var optionsMenu = builder.add.submenu('Options', mainMenu, menu);
+		var once;
 
-		_mainMenu = _menuBuilder.create(_game, x - 200, y - 200, 0, 30, style);
-		_mainMenu.alpha = 0;
+		menu.bringToTop(mainMenu);
 
-		_menuBuilder.add.button('New', function () {
-			alert('TODO New');
-		}, _mainMenu);
-		_menuBuilder.add.button('Load', function () {
-			alert('TODO Load');
-		}, _mainMenu);
-		_menuBuilder.add.button('Options', function () {
-			alert('TODO Options');
-		}, _mainMenu);
-
-		_timer.add(delay, this.fadeInMenu, Menu);
-	},
-
-	fadeInMenu: function () {
-		if (!!!_once) {
-			_once = true;
-			_animationHelper.fadein(_game, _mainMenu, 500, true);
+		function fadeMainMenu () {
+			if (!!!once) {
+				once = true;
+				mainMenu.enter(500);
+			}
 		}
+
+		_game.input.onDown.addOnce(fadeMainMenu);
+		_timer.add(5500, fadeMainMenu);
+	},
+
+	confirmNew: function () {
+			alert('TODO New');
 	}
 
 };

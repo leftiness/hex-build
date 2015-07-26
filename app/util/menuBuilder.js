@@ -1,23 +1,25 @@
+var _animationHelper = require('./animationHelper');
+
 var _game;
 var _x;
 var _y;
 var _xOffset;
 var _yOffset;
 var _style;
+var _group;
 
 var _builder = {
 
-	create: function (game, x, y, xOffset, yOffset, style) {
-		var menu = game.add.group();
-
+	newInstance: function (game, x, y, xOffset, yOffset, style, group) {
 		_game = game;
 		_x = x;
 		_y = y;
 		_xOffset = xOffset;
 		_yOffset = yOffset;
 		_style = style;
+		_group = group;
 
-		return menu;
+		return _builder;
 	},
 
 	add: {
@@ -50,9 +52,57 @@ var _builder = {
 
 			button.add(text);
 			button.add(hitbox);
+
 			menu.add(button);
+			menu.hitboxes.push(hitbox);
 
 			return button;
+		},
+
+		menu: function () {
+			var menu = _game.add.group();
+
+			menu.alpha = 0;
+			menu.inputEnabled = false;
+			menu.hitboxes = [];
+			menu.group = _group;
+
+			_group.add(menu);
+
+			menu.enter = function (time) {
+				time = time || 200;
+				_animationHelper.fadein(_game, menu, time, true);
+				menu.hitboxes.forEach(function (hitbox) {
+					hitbox.inputEnabled = true;
+				});
+				menu.group.bringToTop(menu);
+			};
+
+			menu.exit = function (time) {
+				time = time || 200;
+				_animationHelper.fadeout(_game, menu, time, true);
+				menu.hitboxes.forEach(function (hitbox) {
+					hitbox.inputEnabled = false;
+				});
+				menu.group.sendToBack(menu);
+			};
+
+			return menu;
+		},
+
+		submenu: function (value, parent, group) {
+			var sub = _builder.add.menu();
+			var button = _builder.add.button(value, function () {
+				sub.enter();
+				parent.exit();
+			}, parent);
+
+			_builder.add.button('Return', function () {
+				parent.enter();
+				sub.exit();
+			}, sub);
+
+			return sub;
 		}
 
 	}
