@@ -1,4 +1,4 @@
-var _menuBuilder = require('../util/menuBuilder');
+var MenuBuilder = require('../util/menuBuilder');
 var AnimationHelper = require('../util/animationHelper');
 
 var _game;
@@ -77,7 +77,7 @@ Menu.prototype = {
 		var menu = _game.add.group();
 		var x = _x - 200;
 		var y = _y - 200;
-		var builder = _menuBuilder.newInstance(_game, x, y, 0, 30, _style, menu);
+		var builder = MenuBuilder(_game, x, y, 0, 30, _style, menu);
 		var mainMenu = builder.add.menu();
 		var newMenu = builder.add.submenu('New', mainMenu, menu);
 		var loadMenu = builder.add.submenu('Load', mainMenu, menu);
