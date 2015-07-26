@@ -83,6 +83,10 @@ Menu.prototype = {
 		var optionsMenu = builder.add.submenu('Options', mainMenu, menu);
 		var once;
 
+		builder.add.submenu('Gameplay', optionsMenu, menu);
+		builder.add.submenu('Video', optionsMenu, menu);
+		builder.add.submenu('Audio', optionsMenu, menu);
+
 		menu.bringToTop(mainMenu);
 
 		function fadeMainMenu () {
