@@ -43,12 +43,20 @@ var _builder = {
 			var text = _builder.add.text(value, menu);
 			var hitbox = _game.add.sprite(text.x, text.y);
 			var button = _game.add.group();
+			var selected = _game.add.text(text.x - 20, text.y, '|', _style);
+
+			selected.alpha = 0;
 
 			hitbox.height = text.height;
 			hitbox.width = text.width;
 			hitbox.alpha = 0.5;
-			hitbox.inputEnabled = true;
-			hitbox.events.onInputDown.add(callback, hitbox);
+			hitbox.events.onInputDown.add(callback);
+			hitbox.events.onInputOver.add(function () {
+				selected.alpha = 1;
+			});
+			hitbox.events.onInputOut.add(function () {
+				selected.alpha = 0;
+			});
 
 			button.add(text);
 			button.add(hitbox);
@@ -63,7 +71,6 @@ var _builder = {
 			var menu = _game.add.group();
 
 			menu.alpha = 0;
-			menu.inputEnabled = false;
 			menu.hitboxes = [];
 			menu.group = _group;
 
