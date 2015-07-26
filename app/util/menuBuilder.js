@@ -54,7 +54,7 @@ function MenuBuilder(game, x, y, xOffset, yOffset, style, group) {
 
 		menu.enter = function (time) {
 			time = time || 200;
-			helper.fadein(menu, time, true);
+			helper.sprite.fadein(menu, time, true);
 			menu.hitboxes.forEach(function (hitbox) {
 				hitbox.inputEnabled = true;
 			});
@@ -63,7 +63,7 @@ function MenuBuilder(game, x, y, xOffset, yOffset, style, group) {
 
 		menu.exit = function (time) {
 			time = time || 200;
-			helper.fadeout(menu, time, true);
+			helper.sprite.fadeout(menu, time, true);
 			menu.hitboxes.forEach(function (hitbox) {
 				hitbox.inputEnabled = false;
 			});

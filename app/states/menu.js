@@ -24,12 +24,14 @@ var Menu = function (game) {
 Menu.prototype = {
 
 	create: function () {
-			_timer = _game.time.create(false);
-			_timer.start();
-			_music = _game.add.audio('always-remembered');
-			_self.fadeFromBlack();
-			_self.drawTitle();
-			_self.drawMainMenu();
+		var helper = AnimationHelper(_game);
+		helper.state.fadeFromBlack(1000, true);
+		_game.stage.backgroundColor = '#ffffff';
+		_timer = _game.time.create(false);
+		_timer.start();
+		_music = _game.add.audio('always-remembered');
+		_self.drawTitle();
+		_self.drawMainMenu();
 	},
 
 	update: function () {
@@ -52,17 +54,6 @@ Menu.prototype = {
 		});
 
 		rain.play();
-	},
-
-	fadeFromBlack: function () {
-		var graphics = _game.add.graphics(0, 0);
-		var rec;
-		var helper = AnimationHelper(_game);
-
-		_game.stage.backgroundColor = '#ffffff';
-		graphics.beginFill('#000000', 1);
-		rec = graphics.drawRect(0, 0, _x, _y);
-		helper.fadeout(rec, 1000, true);
 	},
 
 	drawTitle: function () {
